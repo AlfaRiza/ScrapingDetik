@@ -18,8 +18,13 @@ def populer():
 
     titles = populers.findAll(attrs={'class': 'media__title'})
     images = populers.findAll(attrs={'class': 'media__image'})
-    return render_template('index.html', images=images)
+    return render_template('detik.html', images=images)
 
+@app.route('/idr-rates')
+def rate():
+    source = requests.get('http://www.floatrates.com/daily/idr.json')
+    json_data = source.json()
+    return render_template('idr-rates.html', json_data=json_data.values())
 
 if __name__ == '__main__':
     app.run(debug=True)
